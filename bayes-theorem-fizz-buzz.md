@@ -1,4 +1,4 @@
-# Bayes' Theorem is the FuzzBuzz of Data Science
+# Bayes' Theorem is the FizzBuzz of Data Science
 
 The other day, I did a technical interview that involved applying Bayes' Theorem to a simple example. It stumped me.  And it left me feeling empathy for folks who have had trouble with the FizzBuzz interview question.
 
