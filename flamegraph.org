@@ -1,0 +1,155 @@
+#+AUTHOR: Cass Petrus
+#+DESCRIPTION: A post outlining some basic memory profiling
+#+TAGS: projects:blog:data-science:python:programming
+#+TITLE: Memory Profiling in Python
+#+OPTIONS: num:nil 
+#+STARTUP: hidestars
+
+# * Flamegraphs in Python for Machine Learning
+
+# ** What is a flamegraph and why would it be useful? 
+
+# ** How has it helped you debug an application of yours? 
+
+# ** Should I focus on memory or CPU debugging?
+
+* Memory Profiling in Python
+
+Data Scientists often need to sharpen their tools. If you use Python for
+analyzing data or running predictive models, here's a tool to help you avoid
+those dreaded out-of-memory issues that tend to come up with large datasets.
+
+** Enter ~memory_profiler~ for Python
+
+[[https://github.com/fabianp/memory_profiler][This]] memory profile was designed to assess the memory usage of Python programs.
+It's cross platform and should work on any modern Python version (2.7 and up).
+
+To use it, you'll need to install it (using ~pip~ is the preferred way). 
+
+#+BEGIN_SRC shell
+  pip install memory_profiler
+#+END_SRC
+
+Once it's installed, you'll be able to use it as a Python module to profile
+memory usage in your program. To hook into it, you'll need to do a few things. 
+
+First you'll need to *decorate* the methods for which you want a memory profile.
+If you're not familiar with [[https://wiki.python.org/moin/PythonDecorators#What_is_a_Decorator][a decorator]], it's essentially a way to wrap a
+function you define within another function. In the case of ~memory_profiler~,
+you'll wrap your functions in the ~@profile~ decorator to get deeper information
+on their memory usage.
+
+If your function looked like this before: 
+
+#+BEGIN_SRC python
+  def my_function():
+      """Runs my function"""
+      return None
+#+END_SRC
+
+then the ~@profile~ decorated version would look like: 
+
+#+BEGIN_SRC python
+  @profile
+  def my_function():
+      """Runs my function"""
+      return None
+#+END_SRC
+
+It works because your program runs within a special context, so it can measure
+and store relevant statistics. To invoke it, run your command with the flag ~-m
+memory_profiler~. That looks like:
+
+#+BEGIN_SRC shell
+  python -m memory_profiler <your-program>
+#+END_SRC
+
+** Profiling results
+
+To see what the results look like, I produced some [[https://gist.github.com/mathcass/548711ce24f69c4f0f68][sample code snippets]] that
+show you some examples. 
+
+While these examples are contrived, they illustrate how tracing memory usage in
+a program can help you debug problems in your code.
+
+#+BEGIN_SRC shell
+  Filename: run.py
+  Line #    Mem usage    Increment   Line Contents
+  ================================================
+       8   77.098 MiB    0.000 MiB   @profile
+       9                             def infinite_loading():
+      10                                 """Exceeds available memory"""
+      11 2935.297 MiB 2858.199 MiB       train = pd.read_csv('big.csv')
+      12 2935.297 MiB    0.000 MiB       while True:
+      13 4968.926 MiB 2033.629 MiB           new = pd.read_csv('big.csv')
+      14                                     train = pd.concat([train, new])
+
+
+  Traceback (most recent call last):
+  ...
+  MemoryError
+#+END_SRC
+
+Above we have a pretty obvious logical error, namely we're loading a file into
+memory and repeatedly appending its data onto another data structure. However,
+the point here is that you'll get a summary of usage even if your program dies
+because of an out-of-memory exception.
+
+** When should you think about profiling?
+
+#+BEGIN_QUOTE
+Premature optimization is the root of all evil -- Donald Knuth
+#+END_QUOTE
+
+It's easy to get carried away with optimization. Honestly, it's best not to
+start off by immediately profiling your code. It's often better to wait for an
+occasion when you need help. Most of the time, I follow this workflow:
+
+First, try to solve the problem as best as you can on a smaller sample of the
+actual dataset (the key here is to use a small enough dataset so that you have
+seconds between when it starts and finishes, rather than minutes or hours).
+
+Then, include your entire dataset to see how that runs. At this point, based on
+your sample runs you should have a) an idea of how long the full dataset should
+take to run and b) an idea of how much memory it will use. Keep that in mind.
+
+Next, you have to monitor it running, so that could mean three possible outcomes
+(for simplicity)
+
+- It finishes successfully
+- It runs out of memory
+- It's taking too long to run
+
+You should start thinking about profiling your code if you encounter either of
+the latter cases. In the case of overuse of memory, it will help to run the
+memory profiler to see which objects are taking up more memory than you expect.
+
+From there, you can take a look at whether you need to encode your variables
+differently. For example, maybe you're interpreting a numeric variable as a
+string and thus using more RAM. Or it could be time to offload your work to a
+larger server with enough space.
+
+If the algorithm is taking too long, there are a number of options to try out,
+which I'll cover in a later post. 
+
+** Concluding remarks
+
+You just saw how to run some basic memory profiling in your Python programs.
+Out-of-memory while analyzing a particular dataset is one of the primary hurdles
+that people encounter in practice. The ~memory_profiler~ package isn't the only
+one available so check out some of the others in the *Further Reading* section
+below. 
+
+If you liked this post, please share it on Twitter or Facebook and follow me
+[[https://twitter.com/mathcass][@mathcass]].
+
+** Further Reading
+
+- [[https://github.com/fabianp/memory_profiler][~memory_profiler~ on Github]]
+- [[https://github.com/rkern/line_profiler][~line_profiler~ on Github]]
+- [[https://nylas.com/blog/performance/][Profiling Python in Production]]
+- [[https://github.com/evanhempel/python-flamegraph][~python-flamegraph~ on Github]]
+- [[http://valgrind.org/][Valgrind]]
+- [[https://www.huyng.com/posts/python-performance-analysis][A guide to analyzing Python performance]]
+- [[http://blog.thehumangeo.com/2015/07/28/profiling-in-python/][Profiling in Python]]
+

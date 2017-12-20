@@ -1,0 +1,53 @@
+#+AUTHOR: Cass Petrus
+#+DESCRIPTION: A post on how you can make your life easier with better SSH knowledge
+#+TAGS: projects:blog:data-science:ssh:server:remote
+#+TITLE: Using Jypiter on Remote Servers
+#+OPTIONS: num:nil 
+#+STARTUP: hidestars
+
+
+* Post
+
+As a data scientist, it really helps to have a powerful computer nearby when you
+need it. Even with an i7 laptop with 16GB of RAM in it, you'll sometimes find
+yourself needing more power. Whether your task is [[https://aws.amazon.com/ec2/instance-types/#compute-optimized][compute]] or [[https://aws.amazon.com/ec2/instance-types/#memory-optimized][memory]] constrained,
+though, you'll find yourself looking to the cloud for more resources. Today I'll
+outline how to be more effective when you have to compute remotely. 
+
+I like to refer folks to this great article on setting up [[http://nerderati.com/2011/03/17/simplify-your-life-with-an-ssh-config-file/][SSH configs]]. Not only
+will a good SSH configuration file simplify the way you access servers, it can
+also help you streamline the way you work on them.
+
+I find [[https://jupyter.readthedocs.org/en/latest/index.html][Jupyter]] to be a superb resource for writing reports and displaying
+graphics of data. It essentially lets you run code in your web browser. However,
+one issue with running it on a remote machine is that you may not be able to
+access the interface because the server is blocking access to the necessary port
+(this is a great thing for security and prevents others from seeing your work).
+There's a way to work through this by using SSH's ability to forward ports. 
+
+To do that, first you'll need to log into your remote machine: 
+
+#+BEGIN_SRC shell
+  ssh -L 8888:127.0.0.1:8888 <remote host> 
+#+END_SRC
+
+That means you're connecting to your remote host, except any time you want to
+access port 8888 on your local machine (~127.0.0.1~), it will forward it to the
+remote machine's port 8888. 
+
+Then, you'll need to start Jupyter:
+
+#+BEGIN_SRC shell
+  cd <project>
+  jupyter
+#+END_SRC
+
+Finally, head to the url ~http://localhost:8888~ to find yourself accessing the
+remotely running copy of your notebook. 
+
+Here's a screenshot of what that should look like. 
+
+Whether you want to load a 50GB data frame into Pandas or use ~jobs=-1~ in
+Scikit Learn, you should find yourself more able to do your work. 
+
+Follow me on Twitter [[http://twitter.com/mathcass][@mathcass]]. 

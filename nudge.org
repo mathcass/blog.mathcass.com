@@ -1,0 +1,96 @@
+#+AUTHOR: Cass Petrus
+#+DESCRIPTION: A post about the book Nudge and how it relates to Data Science
+#+TAGS: projects:blog
+#+TITLE: Nudging and Data Science
+#+OPTIONS: num:nil
+
+* AIM
+** Audience
+
+   I see the audience of this message as anyone interested in Data
+   Science and policy decisions
+
+** Intent
+
+   My intent is to showcase my ability to connect some disparate ideas
+   and show folks how Data Science aids nudging.
+
+** Message
+
+   The message is that the concepts people are studying in Data
+   Science, when used correctly, can have a role to play in improving
+   our ability to nudge people. 
+
+* Post
+
+I've recently been reading a great book on how people make decisions
+and what organizations can do to help folks make better choices. That
+book is [[http://www.amazon.com/Nudge-Improving-Decisions-Health-Happiness/dp/014311526X][Nudge]].
+
+** What is a nudge?
+
+The authors describe a nudge as anything that can influence the way we
+make decisions. Take the [[https://en.wikipedia.org/wiki/Serial_position_effect][primacy affect]], for instance, namely the idea
+that order matters in a series of items. We're more likely to recall
+the first or last option in a list of items simply because of their
+positions. This would be a nudge if you later chose the first movie
+from a list that a friend had recommended mostly because it was the
+first one to come to mind in the store.
+
+The fact that humans have these biases is in indicator that we don't
+always act rationally. In cases where we haven't had enough experience
+to learn from our decisions, we need a bit of help finding the most
+appropriate option for our needs. Most people only decide what type of
+health care plan they need or at what rate to contribute to their
+retirements plans a few times in their life, so there isn't much
+opportunity to learn at all. 
+
+All in all, the book is a great read, and much of it is an explanation
+of how proper nudges have excellent applications in areas like health
+care and making financial decisions.
+
+** How does Data Science fit in?
+
+So, why bring in Data Science? Well, lately companies have been
+looking to the field of Machine Learning and Statistics to determine
+how to make better business decisions and these methods can play an
+important role in helping define the right nudges to use.
+
+The authors emphasize that proper nudges should a) offer a default
+option that is stacked in the favor of most people and b) make it
+easy to stray from the default option as needed. 
+
+When I think about those two, a few things come to mind. In Machine
+Learning, a [[https://en.wikipedia.org/wiki/Mathematical_optimization][mathematical optimization]] takes data about outcomes and
+selects the best set of choices. And [[https://en.wikipedia.org/wiki/Recommender_system][recommender systems]] are designed
+to, when given a few hints, offer up suggestions of similar or like
+items.
+
+In the case of deciding on the most favorable default option, that
+decision should be made based off of the available data. The authors
+talk about health-care and Medicare Part D and the fact that the
+government randomly assigned plans, thereby leaving most people in a
+sub-optimal situation. An approach to solve this problem given the
+available data would have been to make a survey of citizens and their
+prescription needs, and then selected a default plan from every
+option in a way that minimize some variable, such as the median cost
+per participant. 
+
+Additionally, the authors describe a tool for Medicare Part D that
+allowed someone to input their prescriptions and assigned someone a
+plan to choose from. One of the difficulties with this system was
+that it rarely gave the same answer, even with the same inputs,
+because the plans would change over time. This gave people a false
+sense of which plan was good for them. A better approach would have
+been to give recommendations of appropriate plans, by taking the drug
+information and matching it to available plans. When presented with
+100s of options, people have a difficult time making a choice
+that will work, but if those 100 could be winnowed down to the 3-5 most
+appropriate ones, people will have an easier time weighing the pros
+and cons. 
+
+Obviously, there is still plenty of constructive work to be done in
+supporting any nudge. And I believe that the tools that Data
+Scientists use day-to-day are valuable to keep in mind in these
+efforts. 
+

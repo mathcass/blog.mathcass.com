@@ -1,0 +1,26 @@
+* PyData Lightning Talk
+
+A lot of these ideas stem from failing a lot at organization and a great blog
+post I read that made me change my ways. 
+
+** Store intermediate data transformations in files
+
+This helps with checkpointing and it helps with failing long-running scripts. 
+
+Also, store your serialized models once they're trained
+
+** Use CLI scripts with arguments so you can
+
+Swap between datasets
+
+Swap parameters
+
+Parallelize training of your data
+
+** Some help along the way for CLI scripts in Python
+*** Argparse (or Optparse)
+*** Docopt
+*** Click
+** Other Resources
+*** http://zmjones.com/make/
+*** http://arkitus.com/patterns-for-research-in-machine-learning/

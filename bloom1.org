@@ -1,0 +1,178 @@
+#+AUTHOR: Cass Petrus
+#+DESCRIPTION: A post introducing Bloom filters and explaining how to build them
+#+TAGS: projects:blog:data-science:bloom-filters
+#+TITLE: Bloom Filters in Practice
+#+OPTIONS: num:nil 
+#+STARTUP: hidestars
+
+* Post
+
+I think sometimes, as programmers, we're scared of the details. We're
+afraid that we'll get bogged down in them and not come up. We're
+afraid that they're over our head and that we won't understand them. 
+
+I've been avoiding the details of a pretty powerful tool, the Bloom
+filter, for a while. Today, I'll explain how Bloom filters can add
+value to your analyses or projects and how you can implement a version
+of them to better understand how they work. 
+
+There are plenty of excellent [[https://medium.com/the-story/what-are-bloom-filters-1ec2a50c68ff][articles]] on how Bloom filters work
+already. There are even implementations in different languages that
+you should consider. However, before using any algorithm or technique,
+it's best to understand its construction and form so you can figure
+out what to do if something isn't behaving how you expect. 
+
+** What is a Bloom Filter?
+
+A Bloom filter is a [[https://highlyscalable.wordpress.com/2012/05/01/probabilistic-structures-web-analytics-data-mining/][probabilistic data structure]] that can be used to
+emulate set membership very quickly. So, what's makes a data structure
+probabilistic? Well, unlike a more standard data structure like a
+list, it's more geared toward a particular purpose and there are
+defined probabilities where it will return results that aren't always
+correct. 
+
+Think about the case where you'd have a list, namely, keeping a sorted
+record of the top ten URLs visited on your website. If this were a
+probabilistic data structure, then there'd be a small chance that that
+top item isn't truly the most visited but it'd be very likely. 
+
+In the case of a Bloom filter, it's a data structure that you can use
+to essentially call something like ~<token> in <bloom filter>~ and it
+will return ~False~ correctly 100% of the time but it might return
+~True~ correctly 90% of the time and incorrectly 10% of the time. So,
+why would you want something what could be incorrect?
+
+** How Are Bloom Filters Useful?
+
+I think this article from [[https://medium.com/the-story/what-are-bloom-filters-1ec2a50c68ff#.vsogxbt56][Medium]] is a great read for its direct
+application to a Data Science problem. Medium provides a great way for
+writers to write and publish articles and for people to read it. Most
+of the time, people are reading, though, so they have algorithms for
+making recommendations of new articles based on things you've already
+read. However, one rule for recommendation systems is to avoid
+presenting a user with a useless option, such as an article he or she
+has read before. So, Medium keeps a record of each article ID that
+you've read in a Bloom filter so they can prevent the algorithm from
+recommending it again. 
+
+Now, you might be wondering, why couldn't they just look that
+information up in a database? The speed that a Bloom filter offers
+would rival even the fasted databases. It is certainly possible to
+make the expensive database lookup in some cases (for instance,
+perhaps to double check for a possible incorrect hit) but for the most
+part, you want your website performing as quickly as possible. 
+
+As another example, think about buying items on Amazon.com. Amazon has
+almost any item imaginable, with information all stored by ID. Yet,
+despite all of that, they're still able to tell you right on the
+product page whether you've bought an item before and when. This
+instance is a good candidate for using a Bloom filter to avoid hitting
+the database. Let's illustrate with some numbers. 
+
+Let's say Amazon gets around 200,000 visitors each hour. For the sake
+of simplicity, each person is only looking up a single item. With a
+naive implementation, that would be over 3,000 lookups to the database
+per minute. However, let's suppose that of the 200K visitors, only
+about 5% of them are looking at an item that they've bought. With a
+Bloom filter (which won't ever say "No" incorrectly), that brings the
+total lookups down to around 166/min.
+
+* Post 2
+
+Today we're going to talk about what a Bloom filter is and discuss
+some of the applications in data science. In a later post, we'll build
+a simple implementation with the goal of learning more about how they work.
+
+** What is a Bloom Filter?
+
+A Bloom filter is a [[https://highlyscalable.wordpress.com/2012/05/01/probabilistic-structures-web-analytics-data-mining/][probabilistic data structure]]. Let's break that
+term down. Any time you hear the word "probabilistic" the first thing
+that should come to mind is "error." That is, it sometimes has
+errors. When you hear "data structure" you should think about "space,"
+more specifically storage space or memory.
+
+Bloom filters are designed to answer questions of set membership, that
+is, "is this item one of X?" Here are some simple questions you might be
+working with if you were considering them:
+
+ + Have we seen this email address sign up to our site recently?
+ + Is this a product the user has bought before?
+ + Are the registrations we're seeing from this IP address on a
+   whitelist of IPs that we can trust?
+
+Basically, it compresses simple set membership information into a
+smaller memory footprint at the cost of a bit of error. 
+
+By design, Bloom filters only implement two types of operations, ~add~
+and ~contains~. So, once you've added a member to it, you wouldn't be
+able to remove it. Additionally, you wouldn't be able to query for a
+list of elements in it.
+
+So, why would you be okay with error in data in exchange for using
+less memory? We can answer that question (as well as better understand
+the use-case of set membership) with a few useful examples.
+
+** How are Bloom filters used?
+
+It would be hard not to mention this [[https://medium.com/the-story/what-are-bloom-filters-1ec2a50c68ff#.vsogxbt56][Medium]] article on the subject
+because it clarifies how they apply to a data science task. At Medium,
+they have some version of a distributed data store. Now, distributing
+data helps you scale out information across servers, but it also has a
+chance of increasing your variance in expected response times (read:
+more requests might take longer to finish running).  Most web
+companies focus on making the user experience as pleasant as possible,
+so they value response time. In this case, one particular request that
+was important was the set of articles the particular user had read
+before.
+
+At risk of retelling the already well-told story, suffice it to say
+that they used a Bloom filter to prevent recommending to the user
+articles he or she had read before. This was a case where they used a
+data science model (the store recommendation engine) and they
+augmented it by including a component that could use compressed
+information (the Bloom filter) to prevent the user from needing to see
+the same article twice. Moreover, even though there's potential for
+error in that filter, that error is negligible (in the sense that the
+user's experience isn't hinder by it). To summarize, because they
+could efficiently represent the set of "articles this user had read
+before" and since it had a defined error rate, they could improve
+their user experience.
+
+As another example, think about buying items on Amazon.com. Amazon has
+almost any item imaginable and probably also distributes their data
+for scale. They're still able to tell you right on the product page
+whether you've bought an item before and when. I don't have any
+insight into what's going on behind the scenes but this is another
+perfect place for a Bloom filter by using one at the user level
+(holding the set of products someone has bought) or at the product
+level (holding a set of all the users who have bought the product). A
+negative match (which will be correct 100% of the time) means
+operationally you don't need to perform that database lookup to see if
+someone bought this item. A positive match (which will probably be
+rare most of the time) will be the only time when you confirm and go
+see that transaction data. 
+
+Finally, I wanted to point out a use-case that I found by perusing
+various [[https://github.com/xupeng/bloomfilter-redis#time-series][implementations]] of the tool. Bloom filters can also be used to
+track time-dependent information (or various forms of time series
+data). One thing you could do is store aggregate level information
+(like whether someone bought a particular product in a given time
+horizon like the last 30 or 90 days) in a Bloom filter. Then, based on
+that information, you can make modeling decisions like what sort of
+ads you show this person.
+
+I hope this post helped you learn a little bit about Bloom filters. In a later post,
+I'll go into some detail on how they're implemented with a focus on
+pedagogy. In the meantime, follow me on Wordpress or [[https://twitter.com/mathcass][Twitter]] for
+updates.
+
+
+** Additional links to check out
+   + A [[https://github.com/seomoz/pyreBloom][Python package]] from Moz on using Redis as a backend (they were
+     using it to ensure they didn't crawl the same websites multiple
+     times)
+   + Another [[https://highlyscalable.wordpress.com/2012/05/01/probabilistic-structures-web-analytics-data-mining/][Python implementation]] optimized for scaling
+   + A very detailed [[https://highlyscalable.wordpress.com/2012/05/01/probabilistic-structures-web-analytics-data-mining/][article]] of several other probabilistic data
+     structures
+   + A great [[http://word.bitly.com/post/28558800777/dablooms-an-open-source-scalable-counting][bitly post]] on the subject as well as their own
+     implementation (which also supports removing set members)
