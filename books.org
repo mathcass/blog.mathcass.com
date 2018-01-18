@@ -118,21 +118,17 @@ automates several tasks like:
           - Modeling tuning and parameter selection
 
 Essentially, it makes working in R a lot like using [[http://scikit-learn.org/][Scikit Learn]] but with many
-more options and model implementations.
-
-So that's all you need, right? Just read a couple of books and you're
-on your way? Not quite. You'll actually have to apply some of this and
-learn from it.  Perhaps next time you're in a meeting discussing
-priorities for your company, you will need to frame the conversation
-about your next data project and directing the data effort toward your
-business goals ([[http://www.amazon.com/Data-Science-Business-data-analytic-thinking/dp/1449361323][Data Science for Business]]). When you're brainstorming
-possible things that you could try to predict and use in a marketing
-campaign, you will need to outline the possible techniques and what
-they could offer you ([[http://www.amazon.com/Data-Mining-Techniques-Relationship-Management/dp/0470650931][Data Mining Techniques]]). If you're evaluating
-candidate algorithms for their ability to perform the task accurately,
-you will need to gauge their effectiveness from a theoretical
-([[http://www.amazon.com/Data-Mining-Techniques-Relationship-Management/dp/0470650931][Learning from Data]]) and practical ([[http://www.amazon.com/Applied-Predictive-Modeling-Max-Kuhn/dp/1461468485][Applied Predictive Modeling]])
-standpoint.
+more options and model implementations. So what’s next? Well, the best thing to
+do as you read and learn new skill sis to try to apply the techniques to
+problems you care about. Perhaps next time you're in a meeting discussing
+priorities for your company, you will need to frame the conversation about your
+next data project and directing the data effort toward your business goals ([[http://www.amazon.com/Data-Science-Business-data-analytic-thinking/dp/1449361323][Data
+Science for Business]]). When you're brainstorming possible things that you could
+try to predict and use in a marketing campaign, you will need to outline the
+possible techniques and what they could offer you ([[http://www.amazon.com/Data-Mining-Techniques-Relationship-Management/dp/0470650931][Data Mining Techniques]]). If
+you're evaluating candidate algorithms for their ability to perform the task
+accurately, you will need to gauge their effectiveness from a theoretical
+([[http://www.amazon.com/Data-Mining-Techniques-Relationship-Management/dp/0470650931][Learning from Data]]) and practical ([[http://www.amazon.com/Applied-Predictive-Modeling-Max-Kuhn/dp/1461468485][Applied Predictive Modeling]]) standpoint.
 
 I hope this helps you apply data science at work and gives you
 perspective in the field.
