@@ -7,9 +7,6 @@
 
 * Post
 
-If you're not already following me on Twitter [[http://twitter.com/mathcass][@mathcass]], please follow
-me. Today we're going to talk about 
-
 I was listening to an old episode of [[http://www.partiallyderivative.com/][Partially Derivative]], a podcast
 on data science and the news. One of the hosts mentioned that we're
 now living in the "golden age of data science instruction" and
@@ -31,19 +28,13 @@ would recommend it to the absolute beginner. (To someone who is just
 coming to the subject, I would probably recommend the next choice down
 on the list.)
 
-However, I have a Master's degree in mathematics so I was familiar
-with the background material in linear algebra and probability as well
-as the notation used. Learning from Data taught me that there
-was actual mathematical theory behind a lot of the algorithms
-employed in data science.
-
-Most algorithms are chosen for their pragmatic application, but they
-also have features in and of themselves (such as how they bound the
-space of possible hypotheses about the data) that can help determine
-their effectiveness on data. There's also a general theory for how to
-approach the analysis of these algorithms. At the time of reading, a
-lot of it was still a bit over my head, but it got me incredibly
-curious about the field itself.
+However, if you have a little bit of background in linear algebra and
+probability (enough to be able to read the notation and look up what things mean
+should be fine) then it is absolutely a great book to read for getting started.
+Learning from Data gave me a first taste that there's some rigorous mathematical
+theory behind a lot of the algorithms employed in data science. If working with
+data and seeing results shows you that these methods work, the theory tells you
+*why* it works.
 
 Now, understanding a few things about the theory is great, but most of
 the time, people want to know what it can actually *do*.
@@ -55,7 +46,6 @@ possible before I read Data Mining Techniques. I knew that the most
 widely used algorithms were used for assessing risk, like credit
 scores. However, I didn't know much about how you could make gains in
 the world of marketing using data science techniques.
-
 
 I appreciated that the authors have a lot of experience in the field,
 especially experience that predates most of the growth in big data
@@ -106,16 +96,14 @@ the final book I present.
 
 ** [[http://www.amazon.com/Applied-Predictive-Modeling-Max-Kuhn/dp/1461468485][Applied Predictive Modeling]]
 
-This is a book on predictive modeling in R and on using a package that
-the author developed for doing that. This isn't simply about someone
-tooting their own horn because [[https://topepo.github.io/caret/index.html][caret]] is a quality piece of
-software. Overall, I think that even if you don't end up using R as
-your go-to tool for analyzing data, you'll still learn a lot from this
-book. It thoroughly demonstrates the power caret can offer you in a
-project, to the point that you'll seek the same functionality in your
-tool of choice (or hopefully build its equivalent for us).
+This is a book on predictive modeling in R and on using [[https://topepo.github.io/caret/index.html][a package]] that the
+author developed for doing that. Overall, I think that even if you don't end up
+using R as your go-to tool for analyzing data, you'll still learn a lot from
+this book. It thoroughly demonstrates the power caret can offer you in a
+project, to the point that you'll seek the same functionality in your tool of
+choice (or hopefully build its equivalent for us).
 
-Caret is a package that offers a consistent interface for just about
+As a software tool, caret offers a consistent interface for just about
 any predictive task (classification or regression) that you could ask
 for. One issue some people have with R packages is that the interface
 for algorithms isn't very consistent. Learning how to use one package
@@ -129,9 +117,8 @@ automates several tasks like:
             transforms
           - Modeling tuning and parameter selection
 
-Essentially, it makes working in R a lot like using [[http://scikit-learn.org/][Scikit Learn]] (an
-excellent library itself) but with many more options and model
-implementations.
+Essentially, it makes working in R a lot like using [[http://scikit-learn.org/][Scikit Learn]] but with many
+more options and model implementations.
 
 So that's all you need, right? Just read a couple of books and you're
 on your way? Not quite. You'll actually have to apply some of this and
@@ -148,6 +135,4 @@ you will need to gauge their effectiveness from a theoretical
 standpoint.
 
 I hope this helps you apply data science at work and gives you
-perspective in the field. Also, if you're not a follower on Twitter,
-please follow me [[http://twitter.com/mathcass][@mathcass]].
-
+perspective in the field.
